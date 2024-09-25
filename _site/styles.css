@@ -3,6 +3,11 @@
   background-color: #606c6d;
 }
 
+
+.menu-text {
+  font-family: "Cabin Sketch",cursive;
+}
+
 .container {
   position: relative;
   text-align: center;
@@ -19,7 +24,7 @@
   height: 100%;
   opacity: 0.7;
   border-radius: 25px;
-  border: 4px solid white;
+  border: 1px solid white;
 }
 
 .centered {
@@ -33,4 +38,22 @@
   white-space: nowrap;
   margin: 0;
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+#quarto-title {
+  font-family: "Source Sans Pro", Sans-Serif;
+}
+
+p, ul, summary, figcaption {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: normal;
+}
+
+#quarto-margin-sidebar {
+  font-family: "Source Sans Pro", Sans-Serif;
+  font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Source Sans Pro', sans-serif;
 }

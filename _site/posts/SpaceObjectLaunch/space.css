@@ -1,0 +1,19 @@
+/* css styles */
+
+.title {
+  font-family: "Source Sans Pro", Sans-Serif;
+}
+
+p {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: normal;
+}
+
+#quarto-margin-sidebar {
+  font-family: "Source Sans Pro", Sans-Serif;
+  font-weight: normal;
+}
+
+h1, h2, h3, h4, h5, h6 {
+    font-family: 'Source Sans Pro', sans-serif;
+}

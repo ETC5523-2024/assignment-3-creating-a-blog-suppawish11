@@ -1,0 +1,170 @@
+---
+title: "USA with a significant growth in the number of space objects launched into space orbit"
+author: "Suppawish Siriamant"
+date: "2024-10-04"
+categories: [space, R, blogs]
+format:
+  html:
+    toc: true
+    toc_float: true
+    fig-align: center
+    number-sections: false
+---
+
+```{r library}
+#| echo: false
+#| warning: false
+#| message: false
+library(tidyverse)
+library(patchwork)
+library(conflicted)
+
+# Set up chunk for all slides
+knitr::opts_chunk$set(
+  echo = FALSE,
+  message = FALSE,
+  warning = FALSE,
+  cache = FALSE,
+  dev.args = list(pointsize = 11),
+  fig.pos = "H",
+  fig.width = 8,
+  fig.height = 3
+)
+options(
+  digits = 2,
+  width = 80,
+  ggplot2.continuous.colour = "viridis",
+  ggplot2.continuous.fill = "viridis",
+  ggplot2.discrete.colour = c("#D55E00", "#0072B2", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#F0E442"),
+  ggplot2.discrete.fill = c("#D55E00", "#0072B2", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#F0E442")
+)
+theme_set(theme_bw(base_size = 14) +
+   theme(
+     aspect.ratio = 1,
+     plot.background = element_rect(fill = 'transparent', colour = NA),
+     plot.title.position = "plot",
+     plot.title = element_text(size = 24),
+     panel.background = element_rect(fill = 'transparent', colour = NA),
+     legend.background = element_rect(fill = 'transparent', colour = NA),
+     legend.key = element_rect(fill = 'transparent', colour = NA)
+   )
+)
+
+conflicts_prefer(dplyr::filter)
+conflicts_prefer(dplyr::select)
+conflicts_prefer(dplyr::slice)
+
+```
+
+## Problem description  
+The rapid increase in the number of space objects launched by the United States raises significant questions about the sustainability and management of space activities. With over 2,000 objects sent into space between 2020 and 2023, the U.S. has outpaced all other nations combined, highlighting a competitive advantage driven by advancements in technology, changes in national space policy, and substantial government investment. This expansion offers several advantages, including enhanced scientific research through improved data collection
+and better monitoring capabilities. However, this growth comes with challenges, such as potential overpopulation in Earth's orbit, increased risks of collisions, and the need for effective regulation for the responsible use of space.
+  
+## Data description
+
+The first data set used in this analysis is from [Our World in Data](https://ourworldindata.org/grapher/yearly-number-of-objects-launched-into-outer-space?facet=none#explore-the-data). The data set contains information about annual number of objects launched into space. Object is including with satellites, probes, landers, crewed spacecraft, and space station elements.
+The variables that will be used in this blog are the following:
+
+- Entity: This contains country name, continent, and other entity. 
+- Year: Time period from 1957 - 2023. 
+- annual_launched: Annual number of objects launched into space. 
+
+The second data set used in this analysis is from [Our World in Data](https://ourworldindata.org/grapher/nasa-annual-budget). This data contained the budget data is adjusted for inflation to their dollar values in the fiscal year 2020. All adjustments for inflation are made using the GDP Chained Price Index published by the US Office of Management and Budget. The variables that will be used in this blog are the following:
+
+- Entity: This contains country name, continent, and other entity. 
+- Year: Time period from 1957 - 2023. 
+- Budget: Annual budget of NASA.
+
+The following alteration has been implemented:
+
+- Both data sets use `select` function to deselect the unneeded variable which is the entity code.
+- Using `rename` function in the annual objects launched dataset to rename the varible for simple use.
+
+```{r data}
+#| code-fold: true
+#| echo: true
+space <- read_csv("data/yearly-number-of-objects-launched-into-outer-space.csv") |> 
+  rename("annual_launched" = "Annual number of objects launched into outer space") |> 
+  select(-Code)
+
+nasa <- read_csv("data/nasa-annual-budget.csv") |> 
+  select(-Code)
+```
+
+## Total number of objects launched into outer space
+
+```{r}
+#| label: fig-total_object
+#| fig-cap: "Total number of objects launched into outer space"
+#| fig.height: 2
+  
+space |> 
+  group_by(Entity) |> 
+  summarise(Total_launched = sum(annual_launched)) |> 
+  arrange(-Total_launched) |> 
+  head(6) |> 
+  ggplot(aes(y = fct_reorder(Entity, Total_launched), x = Total_launched)) +
+  geom_col() +
+  geom_col(data = ~filter(.x, Entity =="United States"),
+           fill = "#006DAE")+
+  geom_text(aes(label = Total_launched, hjust = -0.2)) +
+  lims(x = c(0, 20000)) +
+  theme_minimal() +
+  labs(x = "Total number of objects launched into outer space",
+       y = "Country") 
+```
+
+From @fig-total_object, it can be seen that the total number of space objects that the United States launched into space is more than half of the total number from every country included. That number is also doubled the amount of Russia, the second place in the ranking. This number is coming from the advancement of space technology within the country of the US, where they invest a large amount of money into research and technology.
+
+## The United States outpaced Russia
+```{r}
+#| label: fig-total_object-ts
+#| fig-cap: "Cumulative number of objects launched into outer space each year"
+cumu_df <- space |> 
+  group_by(Entity) |> 
+  mutate(cumulative_launch = cumsum(annual_launched)) |> 
+  filter(Entity %in% c("United States", "Russia", "China", "United Kingdom", "Japan"))
+
+cumu_df |> 
+  ggplot(aes(x = Year,
+             y = cumulative_launch,
+             color = fct_reorder(Entity, cumulative_launch, .fun = max, .desc = TRUE))) +
+  geom_line() +
+  geom_point(size = 0.5) +
+  labs(x = "Year",
+       y = "Total object launched",
+       color = "Country")  +
+  scale_x_continuous(breaks = seq(1960, 2030, by = 5), 
+                     limits = c(1960, 2030)) +
+  geom_text(data = cumu_df |> 
+              group_by(Entity) |> 
+              filter(Year == max(Year)), 
+            aes(label = Entity),
+            hjust = -0.1,
+            vjust = 0.5,
+            size = 2)  +
+  theme_minimal()
+```
+
+In @fig-total_object-ts, time-series shows the cumulative total number of objects launched into space orbit in each year, which in the early time period, Russia was the top country that launched the highest number of space objects for almost 50 years from 1973 until 2019. However, after 1995, the launch rate of Russia decrease and the US's launch rate was going the opposite, where the significant increase that can be seen cleary after 2015 that the US's launch rate grow exponentially. In 2020, the year that US was able to outpace Russia and become the country with the highest space object launched. The US launched almost 1,000 units of space objects, and this number increased every year until 2023 where they launched more than 2,000 units into space orbit resulting in the US being the leading of the countries in the total number of space objects.This growth strengthened the US's position as the leading country in space object launches, with a cumulative total of almost 10,000 units in 2023.
+
+
+## NASA Annual Budget
+```{r}
+#| label: fig-nasa-budget
+#| fig-cap: "Annual budget of NASA"
+nasa |> 
+  ggplot(aes(x = Year,
+             y = Budget/1000000000)) +
+  geom_line()+
+  geom_point(aes(y = Budget/1000000000), size = 1) +
+  theme_minimal() +
+  labs(y = "Annual Budget ($Billion)") +
+  scale_x_continuous(breaks = seq(1960, 2022, by = 5), 
+                     limits = c(1960, 2023)) +
+  scale_y_continuous(breaks = seq(0, 40, by = 5))
+```
+
+A significant budget investment that NASA received shown in @fig-nasa-budget, allows them to invest in long-term research and development projects with an average of \$20 billion in the last 20 years, the consistent investment over time leads to cumulative advancements in technologies that can improve the capabilities of their mission and the number of space objects that they launched to the space. Moreover, developing advanced technologies often requires significant infrastructure, such as laboratories and specialized equipment for effective technology development [@sadinNASATECHNOLOGYPUSH1989].
+
+## Conclusion
