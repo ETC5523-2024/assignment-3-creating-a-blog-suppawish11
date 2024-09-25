@@ -2,9 +2,9 @@
   {
     "objectID": "about.html",
     "href": "about.html",
-    "title": "About",
+    "title": "Suppawish Siriamnat",
     "section": "",
-    "text": "This is a blog template for the ETC5523 Communicating with Data assessment at Monash University."
+    "text": "My name is Suppawish Siriamnat. I am from Thailand.\nI am currently doing first year in Master of Business Analytics at Monash University."
   },
   {
     "objectID": "posts/welcome/index.html",
@@ -16,7 +16,7 @@
   {
     "objectID": "index.html",
     "href": "index.html",
-    "title": "Suppawish's Blogs",
+    "title": "SuppawishSiri",
     "section": "",
     "text": "Welcome to my website"
   },
@@ -26,5 +26,12 @@
     "title": "Blog posts",
     "section": "",
     "text": "Welcome To My Blog Template\n\n\n\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJul 18, 2022\n\n\nEmi Tanaka\n\n\n\n\n\n\nNo matching items"
+  },
+  {
+    "objectID": "about.html#education",
+    "href": "about.html#education",
+    "title": "Suppawish Siriamnat",
+    "section": "Education",
+    "text": "Education\nDiploma of Business | Melbourne, Australia\nMonash College | 2021 - 2022\nBachelor of Business | Melbourne, Australia\nMajor: Business Analytics and Statistics\nMonash University | 2022 - 2023\nMaster of Business Analytics | Melbourne, Australia\nMonash University | 2024 - Present"
   }
 ]

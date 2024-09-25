@@ -1,13 +1,31 @@
 ---
-title: "About"
-image: profile.jpg
+title: "Suppawish Siriamnat"
+image: image/profile.jpeg
 about:
-  template: jolla
+  template: solana
   links:
     - icon: github
       text: Github
-      href: https://github.com/etc5523-2022
+      href: https://github.com/suppawish11
 
 ---
 
-This is a blog template for the ETC5523 Communicating with Data assessment at Monash University.
+My name is Suppawish Siriamnat. I am from Thailand.  
+I am currently doing first year in Master of Business Analytics at Monash University.
+
+
+## Education
+
+**Diploma of Business** | Melbourne, Australia
+
+Monash College | 2021 - 2022
+
+**Bachelor of Business** | Melbourne, Australia
+
+Major: Business Analytics and Statistics
+
+Monash University | 2022 - 2023
+
+**Master of Business Analytics** | Melbourne, Australia
+
+Monash University | 2024 - Present
