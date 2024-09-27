@@ -8,6 +8,7 @@
 
 <meta name="author" content="Suppawish Siriamant">
 <meta name="dcterms.date" content="2024-10-04">
+<meta name="description" content="An analysis on the US rapid growth rate of space objects">
 
 <title>SuppawishSiri - USA with a significant growth in the number of space objects launched into space orbit</title>
 <style>
@@ -56,7 +57,27 @@ div.sourceCode
 @media screen {
 pre > code.sourceCode > span > a:first-child::before { text-decoration: underline; }
 }
-</style>
+/* CSS for citations */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+  margin-bottom: 0em;
+}
+.hanging-indent div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}</style>
 
 
 <script src="../../site_libs/quarto-nav/quarto-nav.js"></script>
@@ -102,6 +123,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
     "search-label": "Search"
   }
 }</script>
+<script src="../../site_libs/kePrint-0.0.1/kePrint.js"></script>
+<link href="../../site_libs/lightable-0.0.1/lightable.css" rel="stylesheet">
 
 
 <link rel="stylesheet" href="../../styles.css">
@@ -130,7 +153,7 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   </li>  
   <li class="nav-item">
     <a class="nav-link" href="../../blog.html"> 
-<span class="menu-text">Post</span></a>
+<span class="menu-text">Posts</span></a>
   </li>  
 </ul>
             <ul class="navbar-nav navbar-nav-scroll ms-auto">
@@ -155,7 +178,12 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <div class="quarto-title-banner page-columns page-full">
     <div class="quarto-title column-body">
       <h1 class="title">USA with a significant growth in the number of space objects launched into space orbit</h1>
-                                <div class="quarto-categories">
+                  <div>
+        <div class="description">
+          <p>An analysis on the US rapid growth rate of space objects</p>
+        </div>
+      </div>
+                          <div class="quarto-categories">
                 <div class="quarto-category">space</div>
                 <div class="quarto-category">R</div>
                 <div class="quarto-category">blogs</div>
@@ -197,7 +225,8 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
   <li><a href="#total-number-of-objects-launched-into-outer-space" id="toc-total-number-of-objects-launched-into-outer-space" class="nav-link" data-scroll-target="#total-number-of-objects-launched-into-outer-space">Total number of objects launched into outer space</a></li>
   <li><a href="#the-united-states-outpaced-russia" id="toc-the-united-states-outpaced-russia" class="nav-link" data-scroll-target="#the-united-states-outpaced-russia">The United States outpaced Russia</a></li>
   <li><a href="#nasa-annual-budget" id="toc-nasa-annual-budget" class="nav-link" data-scroll-target="#nasa-annual-budget">NASA Annual Budget</a></li>
-  <li><a href="#conclusion" id="toc-conclusion" class="nav-link" data-scroll-target="#conclusion">Conclusion</a></li>
+  <li><a href="#factors-influencing-the-growth" id="toc-factors-influencing-the-growth" class="nav-link" data-scroll-target="#factors-influencing-the-growth">Factors influencing the growth</a></li>
+  <li><a href="#reference" id="toc-reference" class="nav-link" data-scroll-target="#reference">Reference</a></li>
   </ul>
 </nav>
     </div>
@@ -210,17 +239,17 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 
 <section id="problem-description" class="level2">
 <h2 class="anchored" data-anchor-id="problem-description">Problem description</h2>
-<p>The rapid increase in the number of space objects launched by the United States raises significant questions about the sustainability and management of space activities. With over 2,000 objects sent into space between 2020 and 2023, the U.S. has outpaced all other nations combined, highlighting a competitive advantage driven by advancements in technology, changes in national space policy, and substantial government investment. This expansion offers several advantages, including enhanced scientific research through improved data collection and better monitoring capabilities. However, this growth comes with challenges, such as potential overpopulation in Earth’s orbit, increased risks of collisions, and the need for effective regulation for the responsible use of space.</p>
+<p>The rapid increase in the number of space objects launched by the United States raises significant questions about the sustainability and management of space activities. With over 2,000 objects sent into space between 2020 and 2023, the U.S. has outpaced all other nations combined, highlighting a competitive advantage driven by advancements in technology, changes in national space policy, and substantial government investment. This expansion offers several advantages, including enhanced scientific research through improved data collection and better monitoring capabilities.</p>
 </section>
 <section id="data-description" class="level2">
 <h2 class="anchored" data-anchor-id="data-description">Data description</h2>
-<p>The first data set used in this analysis is from <a href="https://ourworldindata.org/grapher/yearly-number-of-objects-launched-into-outer-space?facet=none#explore-the-data">Our World in Data</a>. The data set contains information about annual number of objects launched into space. Object is including with satellites, probes, landers, crewed spacecraft, and space station elements. The variables that will be used in this blog are the following:</p>
+<p>The first data set used in this analysis is from <a href="https://ourworldindata.org/grapher/yearly-number-of-objects-launched-into-outer-space?facet=none#explore-the-data">Our World in Data</a>. The data set contains information about annual number of objects launched into space. Object is including with satellites, probes, landers, crewed spacecraft, and space station elements <span class="citation" data-cites="owid-space-exploration-satellites">(<a href="#ref-owid-space-exploration-satellites" role="doc-biblioref">Mathieu and Roser 2022</a>)</span>. The variables that will be used in this blog are the following:</p>
 <ul>
 <li>Entity: This contains country name, continent, and other entity.</li>
 <li>Year: Time period from 1957 - 2023.</li>
 <li>annual_launched: Annual number of objects launched into space.</li>
 </ul>
-<p>The second data set used in this analysis is from <a href="https://ourworldindata.org/grapher/nasa-annual-budget">Our World in Data</a>. This data contained the budget data is adjusted for inflation to their dollar values in the fiscal year 2020. All adjustments for inflation are made using the GDP Chained Price Index published by the US Office of Management and Budget. The variables that will be used in this blog are the following:</p>
+<p>The second data set used in this analysis is from <a href="https://ourworldindata.org/grapher/nasa-annual-budget">Our World in Data</a>. This data contained the budget data is adjusted for inflation to their dollar values in the fiscal year 2020. All adjustments for inflation are made using the GDP Chained Price Index published by the US Office of Management and Budget <span class="citation" data-cites="owid-space-exploration-satellites">(<a href="#ref-owid-space-exploration-satellites" role="doc-biblioref">Mathieu and Roser 2022</a>)</span>. The variables that will be used in this blog are the following:</p>
 <ul>
 <li>Entity: This contains country name, continent, and other entity.</li>
 <li>Year: Time period from 1957 - 2023.</li>
@@ -246,11 +275,77 @@ pre > code.sourceCode > span > a:first-child::before { text-decoration: underlin
 <section id="total-number-of-objects-launched-into-outer-space" class="level2">
 <h2 class="anchored" data-anchor-id="total-number-of-objects-launched-into-outer-space">Total number of objects launched into outer space</h2>
 <div class="cell">
+<div id="tbl-rank" class="cell quarto-float anchored">
+<figure class="quarto-float quarto-float-tbl figure">
+<figcaption class="quarto-float-caption-top quarto-float-caption quarto-float-tbl" id="tbl-rank-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+Table&nbsp;1: Top 10 entities with the highest space objects launched
+</figcaption>
+<div aria-describedby="tbl-rank-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <div class="cell-output-display">
-<div id="fig-total_object" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="H">
+<table class="table do-not-create-environment cell caption-top table-sm table-striped small" data-quarto-postprocess="true">
+<thead>
+<tr class="header">
+<th style="text-align: left;" data-quarto-table-cell-role="th">Rank</th>
+<th style="text-align: left;" data-quarto-table-cell-role="th">Entity</th>
+</tr>
+</thead>
+<tbody>
+<tr class="odd">
+<td style="text-align: left; width: 40%;">1</td>
+<td style="text-align: left; width: 60%;">United States</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 40%;">2</td>
+<td style="text-align: left; width: 60%;">Russia</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 40%;">3</td>
+<td style="text-align: left; width: 60%;">China</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 40%;">4</td>
+<td style="text-align: left; width: 60%;">United Kingdom</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 40%;">5</td>
+<td style="text-align: left; width: 60%;">Japan</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 40%;">6</td>
+<td style="text-align: left; width: 60%;">France</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 40%;">7</td>
+<td style="text-align: left; width: 60%;">India</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 40%;">8</td>
+<td style="text-align: left; width: 60%;">Germany</td>
+</tr>
+<tr class="odd">
+<td style="text-align: left; width: 40%;">9</td>
+<td style="text-align: left; width: 60%;">European Space Agency</td>
+</tr>
+<tr class="even">
+<td style="text-align: left; width: 40%;">10</td>
+<td style="text-align: left; width: 60%;">Canada</td>
+</tr>
+</tbody>
+</table>
+
+
+</div>
+</div>
+</figure>
+</div>
+</div>
+<p><a href="#tbl-rank" class="quarto-xref">Table&nbsp;1</a> shows a ranking of countries and entities based on the total number of space objects launched, highlighting the United States as the leader in space exploration. Following the US, Russia and China hold the second and third positions, respectively. This rank shows a mix of large regions contributing into the space object launched.</p>
+<div class="cell">
+<div class="cell-output-display">
+<div id="fig-total_object" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-total_object-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="space_files/figure-html/fig-total_object-1.png" class="img-fluid figure-img" data-fig-pos="H" width="768">
+<img src="space_files/figure-html/fig-total_object-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-total_object-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;1: Total number of objects launched into outer space
@@ -259,16 +354,16 @@ Figure&nbsp;1: Total number of objects launched into outer space
 </div>
 </div>
 </div>
-<p>From <a href="#fig-total_object" class="quarto-xref">Figure&nbsp;1</a>, it can be seen that the total number of space objects that the United States launched into space is more than half of the total number from every country included. That number is also doubled the amount of Russia, the second place in the ranking. This number is coming from the advancement of space technology within the country of the US, where they invest a large amount of money into research and technology.</p>
+<p>As shown in <a href="#fig-total_object" class="quarto-xref">Figure&nbsp;1</a>, the United States has launched more than half of the total space objects sent into orbit by all countries combined. This figure is also twice the amount launched by Russia, which ranks second. The US’s dominance in space object launches is a direct result of its significant advancements in space technology, driven by substantial investments in research and development. This commitment to innovation has enabled the US to outpace other nations and maintain its leadership in space exploration.</p>
 </section>
 <section id="the-united-states-outpaced-russia" class="level2">
 <h2 class="anchored" data-anchor-id="the-united-states-outpaced-russia">The United States outpaced Russia</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-total_object-ts" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="H">
+<div id="fig-total_object-ts" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-total_object-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="space_files/figure-html/fig-total_object-ts-1.png" class="img-fluid figure-img" data-fig-pos="H" width="768">
+<img src="space_files/figure-html/fig-total_object-ts-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-total_object-ts-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;2: Cumulative number of objects launched into outer space each year
@@ -277,16 +372,16 @@ Figure&nbsp;2: Cumulative number of objects launched into outer space each year
 </div>
 </div>
 </div>
-<p>In <a href="#fig-total_object-ts" class="quarto-xref">Figure&nbsp;2</a>, time-series shows the cumulative total number of objects launched into space orbit in each year, which in the early time period, Russia was the top country that launched the highest number of space objects for almost 50 years from 1973 until 2019. However, after 1995, the launch rate of Russia decrease and the US’s launch rate was going the opposite, where the significant increase that can be seen cleary after 2015 that the US’s launch rate grow exponentially. In 2020, the year that US was able to outpace Russia and become the country with the highest space object launched. The US launched almost 1,000 units of space objects, and this number increased every year until 2023 where they launched more than 2,000 units into space orbit resulting in the US being the leading of the countries in the total number of space objects.This growth strengthened the US’s position as the leading country in space object launches, with a cumulative total of almost 10,000 units in 2023.</p>
+<p>In <a href="#fig-total_object-ts" class="quarto-xref">Figure&nbsp;2</a>, it can be seen that for nearly 50 years, from 1973 until 2019, Russia held the top position as the country with the highest number of space object launches. However, after 1995, Russia’s launch rate began to decline, while the US saw a remarkable surge in its space activity. The turning point came after 2015, when the US’s launch rate began to grow exponentially. By 2020, the US had outpaced Russia, becoming the leading country in space object launches. That year alone, the US launched nearly 1,000 units into orbit, a number that continued to rise every year. By 2023, the US had launched over 2,000 units, securing its dominant position in space exploration. With a cumulative total of almost 10,000 space objects in orbit, the US has firmly established itself as the global leader in space object launches.</p>
 </section>
 <section id="nasa-annual-budget" class="level2">
 <h2 class="anchored" data-anchor-id="nasa-annual-budget">NASA Annual Budget</h2>
 <div class="cell">
 <div class="cell-output-display">
-<div id="fig-nasa-budget" class="quarto-figure quarto-figure-center quarto-float anchored" data-fig-pos="H">
+<div id="fig-nasa-budget" class="quarto-figure quarto-figure-center quarto-float anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-nasa-budget-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-<img src="space_files/figure-html/fig-nasa-budget-1.png" class="img-fluid figure-img" data-fig-pos="H" width="768">
+<img src="space_files/figure-html/fig-nasa-budget-1.png" class="img-fluid figure-img" width="672">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-nasa-budget-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 Figure&nbsp;3: Annual budget of NASA
@@ -295,15 +390,27 @@ Figure&nbsp;3: Annual budget of NASA
 </div>
 </div>
 </div>
-<p>A significant budget investment that NASA received shown in <a href="#fig-nasa-budget" class="quarto-xref">Figure&nbsp;3</a>, allows them to invest in long-term research and development projects with an average of $20 billion in the last 20 years, the consistent investment over time leads to cumulative advancements in technologies that can improve the capabilities of their mission and the number of space objects that they launched to the space. Moreover, developing advanced technologies often requires significant infrastructure, such as laboratories and specialized equipment for effective technology development <span class="citation" data-cites="sadinNASATECHNOLOGYPUSH1989">[@sadinNASATECHNOLOGYPUSH1989]</span>.</p>
+<p>NASA’s significant budget investment, as shown in <a href="#fig-nasa-budget" class="quarto-xref">Figure&nbsp;3</a>, has allowed for substantial long-term research and development efforts, averaging $20 billion annually over the last two decades. This consistent funding has fueled cumulative advancements in technology, improving NASA’s mission capabilities and increasing the number of space objects launched into orbit. Moreover, developing cutting-edge technologies often necessitates extensive infrastructure, including specialized laboratories and equipment, which further supports the innovation and technology development efforts <span class="citation" data-cites="sadinNASATECHNOLOGYPUSH1989">(<a href="#ref-sadinNASATECHNOLOGYPUSH1989" role="doc-biblioref">Sadin, Povinelli, and Rosen 1989</a>)</span>.</p>
 </section>
-<section id="conclusion" class="level2">
-<h2 class="anchored" data-anchor-id="conclusion">Conclusion</h2>
+<section id="factors-influencing-the-growth" class="level2">
+<h2 class="anchored" data-anchor-id="factors-influencing-the-growth">Factors influencing the growth</h2>
+<p>The United States has experienced significant growth in the number of space objects launched into orbit, a direct result of advancements in space technology driven by contributions from various sectors such as the government, independent agencies, and private companies. Factors like the implementation of new national space policies and substantial investment funding from the US government have solidified the country’s position as a leader in space exploration and technology <span class="citation" data-cites="sadinNASATECHNOLOGYPUSH1989">(<a href="#ref-sadinNASATECHNOLOGYPUSH1989" role="doc-biblioref">Sadin, Povinelli, and Rosen 1989</a>)</span>. This combination of efforts enables the US to maintain its competitiveness in satellite deployment and space research, furthering its role as an innovator in the rapidly evolving space industry.</p>
+</section>
+<section id="reference" class="level1">
+
+
 
 
 </section>
 
-</main> <!-- /main -->
+<div id="quarto-appendix" class="default"><section class="quarto-appendix-contents" role="doc-bibliography" id="quarto-bibliography"><h2 class="anchored quarto-appendix-heading">Reference</h2><div id="refs" class="references csl-bib-body hanging-indent" data-entry-spacing="0" role="list">
+<div id="ref-owid-space-exploration-satellites" class="csl-entry" role="listitem">
+Mathieu, Edouard, and Max Roser. 2022. <span>“Space Exploration and Satellites.”</span> <em>Our World in Data</em>. <a href="https://ourworldindata.org/space-exploration-satellites">https://ourworldindata.org/space-exploration-satellites</a>.
+</div>
+<div id="ref-sadinNASATECHNOLOGYPUSH1989" class="csl-entry" role="listitem">
+Sadin, Stanley R., Frederick P. Povinelli, and Robert Rosen. 1989. <span>“<span>THE NASA TECHNOLOGY PUSH TOWARDS FUTURE SPACE MISSION SYSTEMS</span>.”</span> In <em>Space and <span>Humanity</span></em>, edited by L. G. Napolitano, 73–77. Oxford: Pergamon. <a href="https://doi.org/10.1016/B978-0-08-037877-0.50012-0">https://doi.org/10.1016/B978-0-08-037877-0.50012-0</a>.
+</div>
+</div></section></div></main> <!-- /main -->
 <script id="quarto-html-after-body" type="application/javascript">
 window.document.addEventListener("DOMContentLoaded", function (event) {
   const toggleBodyColorMode = (bsSheetEl) => {

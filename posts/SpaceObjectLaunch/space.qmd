@@ -1,5 +1,7 @@
 ---
 title: "USA with a significant growth in the number of space objects launched into space orbit"
+description: |
+  An analysis on the US rapid growth rate of space objects
 author: "Suppawish Siriamant"
 date: "2024-10-04"
 categories: [space, R, blogs]
@@ -9,6 +11,7 @@ format:
     toc_float: true
     fig-align: center
     number-sections: false
+bibliography: reference.bib
 ---
 
 ```{r library}
@@ -16,8 +19,7 @@ format:
 #| warning: false
 #| message: false
 library(tidyverse)
-library(patchwork)
-library(conflicted)
+library(kableExtra)
 
 # Set up chunk for all slides
 knitr::opts_chunk$set(
@@ -25,51 +27,23 @@ knitr::opts_chunk$set(
   message = FALSE,
   warning = FALSE,
   cache = FALSE,
-  dev.args = list(pointsize = 11),
-  fig.pos = "H",
-  fig.width = 8,
-  fig.height = 3
+  dev.args = list(pointsize = 11)
 )
-options(
-  digits = 2,
-  width = 80,
-  ggplot2.continuous.colour = "viridis",
-  ggplot2.continuous.fill = "viridis",
-  ggplot2.discrete.colour = c("#D55E00", "#0072B2", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#F0E442"),
-  ggplot2.discrete.fill = c("#D55E00", "#0072B2", "#009E73", "#CC79A7", "#E69F00", "#56B4E9", "#F0E442")
-)
-theme_set(theme_bw(base_size = 14) +
-   theme(
-     aspect.ratio = 1,
-     plot.background = element_rect(fill = 'transparent', colour = NA),
-     plot.title.position = "plot",
-     plot.title = element_text(size = 24),
-     panel.background = element_rect(fill = 'transparent', colour = NA),
-     legend.background = element_rect(fill = 'transparent', colour = NA),
-     legend.key = element_rect(fill = 'transparent', colour = NA)
-   )
-)
-
-conflicts_prefer(dplyr::filter)
-conflicts_prefer(dplyr::select)
-conflicts_prefer(dplyr::slice)
-
 ```
 
 ## Problem description  
-The rapid increase in the number of space objects launched by the United States raises significant questions about the sustainability and management of space activities. With over 2,000 objects sent into space between 2020 and 2023, the U.S. has outpaced all other nations combined, highlighting a competitive advantage driven by advancements in technology, changes in national space policy, and substantial government investment. This expansion offers several advantages, including enhanced scientific research through improved data collection
-and better monitoring capabilities. However, this growth comes with challenges, such as potential overpopulation in Earth's orbit, increased risks of collisions, and the need for effective regulation for the responsible use of space.
-  
+The rapid increase in the number of space objects launched by the United States raises significant questions about the sustainability and management of space activities. With over 2,000 objects sent into space between 2020 and 2023, the U.S. has outpaced all other nations combined, highlighting a competitive advantage driven by advancements in technology, changes in national space policy, and substantial government investment. This expansion offers several advantages, including enhanced scientific research through improved data collection and better monitoring capabilities. 
+
 ## Data description
 
-The first data set used in this analysis is from [Our World in Data](https://ourworldindata.org/grapher/yearly-number-of-objects-launched-into-outer-space?facet=none#explore-the-data). The data set contains information about annual number of objects launched into space. Object is including with satellites, probes, landers, crewed spacecraft, and space station elements.
+The first data set used in this analysis is from [Our World in Data](https://ourworldindata.org/grapher/yearly-number-of-objects-launched-into-outer-space?facet=none#explore-the-data). The data set contains information about annual number of objects launched into space. Object is including with satellites, probes, landers, crewed spacecraft, and space station elements [@owid-space-exploration-satellites].
 The variables that will be used in this blog are the following:
 
 - Entity: This contains country name, continent, and other entity. 
 - Year: Time period from 1957 - 2023. 
 - annual_launched: Annual number of objects launched into space. 
 
-The second data set used in this analysis is from [Our World in Data](https://ourworldindata.org/grapher/nasa-annual-budget). This data contained the budget data is adjusted for inflation to their dollar values in the fiscal year 2020. All adjustments for inflation are made using the GDP Chained Price Index published by the US Office of Management and Budget. The variables that will be used in this blog are the following:
+The second data set used in this analysis is from [Our World in Data](https://ourworldindata.org/grapher/nasa-annual-budget). This data contained the budget data is adjusted for inflation to their dollar values in the fiscal year 2020. All adjustments for inflation are made using the GDP Chained Price Index published by the US Office of Management and Budget [@owid-space-exploration-satellites]. The variables that will be used in this blog are the following:
 
 - Entity: This contains country name, continent, and other entity. 
 - Year: Time period from 1957 - 2023. 
@@ -94,9 +68,28 @@ nasa <- read_csv("data/nasa-annual-budget.csv") |>
 ## Total number of objects launched into outer space
 
 ```{r}
+#| label: tbl-rank
+#| tbl-cap: "Top 10 entities with the highest space objects launched"
+space |> 
+  group_by(Entity) |> 
+  summarise(Total_launched = sum(annual_launched)) |> 
+  arrange(-Total_launched) |> 
+  filter(!Entity == "World") |> 
+  head(10) |> 
+  mutate(Rank = row_number()) |> 
+  select(Rank, Entity) |> 
+  kable(col.names = c("Rank", "Entity"), align = "ll") |> 
+  kable_styling(full_width = FALSE) |> 
+  column_spec(1, width = "40%") |>   
+  column_spec(2, width = "60%")  
+```
+
+@tbl-rank shows a ranking of countries and entities based on the total number of space objects launched, highlighting the United States as the leader in space exploration. Following the US, Russia and China hold the second and third positions, respectively. This rank shows a mix of large regions contributing into the space object launched.
+
+```{r}
 #| label: fig-total_object
 #| fig-cap: "Total number of objects launched into outer space"
-#| fig.height: 2
+#| fig.height: 3
   
 space |> 
   group_by(Entity) |> 
@@ -112,9 +105,12 @@ space |>
   theme_minimal() +
   labs(x = "Total number of objects launched into outer space",
        y = "Country") 
+  
 ```
 
-From @fig-total_object, it can be seen that the total number of space objects that the United States launched into space is more than half of the total number from every country included. That number is also doubled the amount of Russia, the second place in the ranking. This number is coming from the advancement of space technology within the country of the US, where they invest a large amount of money into research and technology.
+
+
+As shown in @fig-total_object, the United States has launched more than half of the total space objects sent into orbit by all countries combined. This figure is also twice the amount launched by Russia, which ranks second. The US’s dominance in space object launches is a direct result of its significant advancements in space technology, driven by substantial investments in research and development. This commitment to innovation has enabled the US to outpace other nations and maintain its leadership in space exploration.
 
 ## The United States outpaced Russia
 ```{r}
@@ -146,7 +142,7 @@ cumu_df |>
   theme_minimal()
 ```
 
-In @fig-total_object-ts, time-series shows the cumulative total number of objects launched into space orbit in each year, which in the early time period, Russia was the top country that launched the highest number of space objects for almost 50 years from 1973 until 2019. However, after 1995, the launch rate of Russia decrease and the US's launch rate was going the opposite, where the significant increase that can be seen cleary after 2015 that the US's launch rate grow exponentially. In 2020, the year that US was able to outpace Russia and become the country with the highest space object launched. The US launched almost 1,000 units of space objects, and this number increased every year until 2023 where they launched more than 2,000 units into space orbit resulting in the US being the leading of the countries in the total number of space objects.This growth strengthened the US's position as the leading country in space object launches, with a cumulative total of almost 10,000 units in 2023.
+In @fig-total_object-ts, it can be seen that for nearly 50 years, from 1973 until 2019, Russia held the top position as the country with the highest number of space object launches. However, after 1995, Russia's launch rate began to decline, while the US saw a remarkable surge in its space activity. The turning point came after 2015, when the US’s launch rate began to grow exponentially. By 2020, the US had outpaced Russia, becoming the leading country in space object launches. That year alone, the US launched nearly 1,000 units into orbit, a number that continued to rise every year. By 2023, the US had launched over 2,000 units, securing its dominant position in space exploration. With a cumulative total of almost 10,000 space objects in orbit, the US has firmly established itself as the global leader in space object launches.
 
 
 ## NASA Annual Budget
@@ -165,6 +161,10 @@ nasa |>
   scale_y_continuous(breaks = seq(0, 40, by = 5))
 ```
 
-A significant budget investment that NASA received shown in @fig-nasa-budget, allows them to invest in long-term research and development projects with an average of \$20 billion in the last 20 years, the consistent investment over time leads to cumulative advancements in technologies that can improve the capabilities of their mission and the number of space objects that they launched to the space. Moreover, developing advanced technologies often requires significant infrastructure, such as laboratories and specialized equipment for effective technology development [@sadinNASATECHNOLOGYPUSH1989].
+NASA's significant budget investment, as shown in @fig-nasa-budget, has allowed for substantial long-term research and development efforts, averaging $20 billion annually over the last two decades. This consistent funding has fueled cumulative advancements in technology, improving NASA's mission capabilities and increasing the number of space objects launched into orbit. Moreover, developing cutting-edge technologies often necessitates extensive infrastructure, including specialized laboratories and equipment, which further supports the innovation and technology development efforts [@sadinNASATECHNOLOGYPUSH1989].
 
-## Conclusion
+## Factors influencing the growth
+
+The United States has experienced significant growth in the number of space objects launched into orbit, a direct result of advancements in space technology driven by contributions from various sectors such as the government, independent agencies, and private companies. Factors like the implementation of new national space policies and substantial investment funding from the US government have solidified the country's position as a leader in space exploration and technology [@sadinNASATECHNOLOGYPUSH1989]. This combination of efforts enables the US to maintain its competitiveness in satellite deployment and space research, furthering its role as an innovator in the rapidly evolving space industry.
+
+# Reference 
