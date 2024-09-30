@@ -38,7 +38,7 @@
   text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
 }
 
-#quarto-title {
+#quarto-title, Strong {
   font-family: "Source Sans Pro", Sans-Serif;
 }
 
