@@ -12,6 +12,7 @@ format:
     fig-align: center
     number-sections: false
 bibliography: reference.bib
+image: image/image.jpg
 ---
 
 ```{r library}
