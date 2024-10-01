@@ -1,0 +1,54 @@
+/* css styles */
+.navbar-dark, .quarto-title-banner {
+  background-color: #606c6d;
+}
+
+
+.menu-text {
+  font-family: "Cabin Sketch",cursive;
+}
+
+.container img {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+#home {
+  display: block;
+  width: 100%;
+  height: 100%;
+  opacity: 0.7;
+  border: 1px solid white;
+}
+
+.centered {
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  color: white;
+  font-size: 80px;
+  text-transform: uppercase;
+  white-space: nowrap;
+  margin: 0;
+  text-shadow: -2px 0 black, 0 2px black, 2px 0 black, 0 -2px black;
+}
+
+#quarto-title, Strong {
+  font-family: "Source Sans Pro", Sans-Serif;
+}
+
+p, ul, summary, figcaption, table, h1, h2, h3, h4, h5, h6 {
+    font-family: 'Source Sans Pro', sans-serif;
+    font-weight: normal;
+}
+
+#quarto-margin-sidebar, #quarto-appendix {
+  font-family: "Source Sans Pro", Sans-Serif;
+  font-weight: normal;
+}
+
